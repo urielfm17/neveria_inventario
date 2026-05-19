@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menú Principal</title>
+
+  <link rel="stylesheet" href="../CSS/index.css">
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+  <div class="contenedor">
+
+    <!-- ENCABEZADO -->
+    <div class="top-bar">
+
+      <div class="usuario">
+        Usuario:
+        <span>uriel</span>
+      </div>
+
+      <h1>Helados Luz del Día</h1>
+
+      <button class="btn-cerrar">
+        Cerrar sesión
+      </button>
+
+    </div>
+
+    <!-- BOTONES -->
+    <div class="panel-botones">
+
+      <button class="btn-menu activo">
+        Helados
+      </button>
+
+      <button class="btn-menu">
+        Paletas
+      </button>
+
+      <button class="btn-menu">
+        Helados 15L
+      </button>
+
+      <button class="btn-menu reportes">
+        Reportes
+      </button>
+
+    </div>
+
+    <!-- BUSCADOR -->
+    <div class="buscador">
+
+      <input type="text" placeholder="Buscar sabor...">
+
+      <button class="btn-buscar">
+        <i class="bi bi-search"></i>
+        Buscar
+      </button>
+
+    </div>
+
+    <!-- RESUMEN -->
+    <div class="tabla-contenedor">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Presentación</th>
+            <th>Cantidad</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Helado de Fresa</td>
+
+            <td>
+              <span class="tag">Litros</span>
+            </td>
+
+            <td>
+              <div class="cantidad">
+
+                <button class="menos">-</button>
+
+                <span>12</span>
+
+                <button class="mas">+</button>
+
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Helado de Chocolate</td>
+
+            <td>
+              <span class="tag">Litro</span>
+            </td>
+
+            <td>
+              <div class="cantidad">
+
+                <button class="menos">-</button>
+
+                <span>05</span>
+
+                <button class="mas">+</button>
+
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Paleta de Limón</td>
+
+            <td>
+              <span class="tag">Paletas</span>
+            </td>
+
+            <td>
+              <div class="cantidad">
+
+                <button class="menos">-</button>
+
+                <span>08</span>
+
+                <button class="mas">+</button>
+
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+      <div class="acciones">
+
+        <button class="btn-pdf">
+          <i class="bi bi-file-earmark-pdf"></i>
+          Guardar y generar PDF
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
