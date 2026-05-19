@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes - Nevería</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/reportes.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1><i class="fas fa-ice-cream"></i> Nevería - Reportes</h1>
+        <nav>
+            <a href="#" class="nav-btn"><i class="fas fa-home"></i> Inicio</a>
+        </nav>
+    </div>
+
+    <!-- Buscador por Fechas -->
+    <div class="main-content">
+        <div class="search-box">
+            <h2><i class="fas fa-calendar-alt"></i> Historial de Pedidos</h2>
+            
+            <div class="date-group">
+                <label>Fecha Inicial</label>
+                <input type="date" id="fechaInicio">
+            </div>
+
+            <div class="date-group">
+                <label>Fecha Final</label>
+                <input type="date" id="fechaFin">
+            </div>
+
+            <button class="btn-search" onclick="buscarPedidos()">
+                <i class="fas fa-search"></i> Buscar
+            </button>
+        </div>
+
+        <!-- Tabla de Resultados -->
+        <div class="table-container">
+            <div class="table-header">
+                <h3>Pedidos Realizados</h3>
+                <span class="total-count" id="totalPedidos">0 pedidos</span>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Pedido</th>
+                        <th>Fecha</th>
+                        <th>Proveedor</th>
+                        <th>Productos</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                        <th>PDF</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaPedidos">
+                    <!-- Los datos se insertan aquí con JavaScript -->
+                </tbody>
+            </table>
+
+            <div class="no-results" id="noResultados" style="display: none;">
+                <i class="fas fa-file-alt"></i>
+                <p>No se encontraron pedidos en este rango de fechas</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATOS DE EJEMPLO (Simulando tu base de datos) ---
+        const pedidos = [
+            { id: 'PED-001', fecha: '2024-01-15', proveedor: 'Lácteos del Norte', productos: 'Leche entera (20L), Crema (10L)', total: 2500, estado: 'completado' },
+            { id: 'PED-002', fecha: '2024-01-18', proveedor: 'Frutas Frescas SA', productos: 'Fresas (5kg), Mangos (8kg)', total: 890, estado: 'completado' },
+            { id: 'PED-003', fecha: '2024-01-22', proveedor: 'Industrial Helados', productos: 'Conos (500 unidades), Vasos (300 unidades)', total: 1200, estado: 'pending' },
+            { id: 'PED-004', fecha: '2024-02-01', proveedor: 'Lácteos del Norte', productos: 'Leche deslactosada (15L)', total: 1800, estado: 'completado' },
+            { id: 'PED-005', fecha: '2024-02-10', proveedor: 'Envases y Más', productos: 'Vasos térmicos (1000 unidades)', total: 3500, estado: 'completado' },
+            { id: 'PED-006', fecha: '2024-02-14', proveedor: 'Frutas Frescas SA', productos: 'Plátanos (10kg), Uvas (3kg)', total: 450, estado: 'cancelled' },
+            { id: 'PED-007', fecha: '2024-02-20', proveedor: 'Salsas y Toppings', productos: 'Chocolate líquido (5L), Caramelos (3kg)', total: 920, estado: 'completado' },
+            { id: 'PED-008', fecha: '2024-03-05', proveedor: 'Industrial Helados', productos: 'Sandwicheshelados (200 unidades)', total: 1500, estado: 'pending' },
+        ];
+
+        // --- FUNCIÓN PARA BUSCAR POR FECHAS ---
+        function buscarPedidos() {
+            const fechaInicio = document.getElementById('fechaInicio').value;
+            const fechaFin = document.getElementById('fechaFin').value;
+            const tablaBody = document.getElementById('tablaPedidos');
+            const noResultados = document.getElementById('noResultados');
+            const totalLabel = document.getElementById('totalPedidos');
+
+            tablaBody.innerHTML = '';
+
+            // Si no hay fechas seleccionadas, mostrar todos
+            let pedidosFiltrados = pedidos;
+            
+            if (fechaInicio && fechaFin) {
+                pedidosFiltrados = pedidos.filter(p => 
+                    p.fecha >= fechaInicio && p.fecha <= fechaFin
+                );
+            }
+
+            // Mostrar resultados
+            if (pedidosFiltrados.length === 0) {
+                noResultados.style.display = 'block';
+                totalLabel.textContent = '0 pedidos';
+            } else {
+                noResultados.style.display = 'none';
+                totalLabel.textContent = `${pedidosFiltrados.length} pedido(s)`;
+
+                pedidosFiltrados.forEach(pedido => {
+                    const estadoClass = pedido.estado === 'completado' ? 'completed' : 
+                                   pedido.estado === 'pending' ? 'pending' : 'cancelled';
+                    
+                    const estadoTexto = pedido.estado === 'completado' ? 'Entregado' : 
+                                    pedido.estado === 'pending' ? 'Pendiente' : 'Cancelado';
+
+                    const row = `
+                        <tr>
+                            <td><strong>${pedido.id}</strong></td>
+                            <td>${formatFecha(pedido.fecha)}</td>
+                            <td>${pedido.proveedor}</td>
+                            <td>${pedido.productos}</td>
+                            <td><strong>$${pedido.total}</strong></td>
+                            <td><span class="status ${estadoClass}">${estadoTexto}</span></td>
+                            <td>
+                                <button class="btn-pdf" onclick="generarPDF('${pedido.id}')">
+                                    <i class="fas fa-file-pdf"></i> PDF
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                    tablaBody.innerHTML += row;
+                });
+            }
+        }
+
+        // --- FUNCIÓN PARA GENERAR PDF (Simulado) ---
+        function generarPDF(idPedido) {
+            const pedido = pedidos.find(p => p.id === idPedido);
+            if (!pedido) return;
+
+            // Crear contenido para imprimir
+            const contenidoPDF = `
+PEDIDO DE MERCADERÍA
+══════════════════════════════════════════
+
+ID del Pedido: ${pedido.id}
+Fecha: ${formatFecha(pedido.fecha)}
+
+PROVEEDOR:
+${pedido.productos}
+
+──────────────────────────────────────────
+PRODUCTOS SOLICITADOS:
+${pedido.productos}
+
+──────────────────────────────────────────
+TOTAL: $${pedido.total}
+
+──────────────────────────────────────────
+Estado: ${pedido.estado.toUpperCase()}
+
+══════════════════════════════════════════
+Nevería - Gestión de Inventario
+`;
+
+            // Abrir ventana de impresión
+            const ventana = window.open('', '_blank');
+            ventana.document.write('<pre style="font-family: monospace; font-size: 14px; padding: 20px;">');
+            ventana.document.write(contenidoPDF);
+            ventana.document.write('</pre>');
+            ventana.document.close();
+            ventana.print();
+        }
+
+        // --- FORMATEAR FECHA ---
+        function formatFecha(fechaStr) {
+            const fecha = new Date(fechaStr + 'T00:00:00');
+            return fecha.toLocaleDateString('es-ES', { 
+                day: '2-digit', 
+                month: 'long', 
+                year: 'numeric' 
+            });
+        }
+
+        // --- CARGAR TODOS AL INICIO ---
+        window.onload = function() {
+            // Establecer fechas por defecto (mes actual)
+            const hoy = new Date();
+            const mesInicio = new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+            
+            document.getElementById('fechaInicio').value = mesInicio.toISOString().split('T')[0];
+            document.getElementById('fechaFin').value = hoy.toISOString().split('T')[0];
+            
+            buscarPedidos();
+        };
+    </script>
+</body>
+</html>
