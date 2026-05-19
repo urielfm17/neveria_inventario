@@ -6,7 +6,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            background: linear-gradient(135deg, #156cff 0%, #3b82f6 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -93,7 +93,7 @@
         .btn-login {
             width: 100%;
             padding: 15px;
-            background: #1e3a8a;
+            background: #156cff;
             color: white;
             border: none;
             border-radius: 10px;
