@@ -43,16 +43,15 @@
                 Paletas
             </button>
 
-            <button class="btn-menu" onclick="window.location.href='helados15l.html'">
+            <button class="btn-menu" onclick="window.location.href='helados15L.html'">
                 Helados 15L
             </button>
 
-
- <a href="./reportes.html">
-      <button class="btn-menu reportes" >
-        Reportes
-      </button>
-</a>
+            <a href="reportes.html">
+                <button class="btn-menu reportes">
+                    Reportes
+                </button>
+            </a>
 
         </div>
 
@@ -78,80 +77,26 @@
                         <th>Producto</th>
                         <th>Presentación</th>
                         <th>Cantidad</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
 
-                <tbody>
-
-                    <tr>
-                        <td>Helado de Fresa</td>
-
-                        <td>
-                            <span class="tag">Litros</span>
-                        </td>
-
-                        <td>
-                            <div class="cantidad">
-
-                                <button class="menos">-</button>
-
-                                <span>12</span>
-
-                                <button class="mas">+</button>
-
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Helado de Chocolate</td>
-
-                        <td>
-                            <span class="tag">Litro</span>
-                        </td>
-
-                        <td>
-                            <div class="cantidad">
-
-                                <button class="menos">-</button>
-
-                                <span>05</span>
-
-                                <button class="mas">+</button>
-
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Paleta de Limón</td>
-
-                        <td>
-                            <span class="tag">Paletas</span>
-                        </td>
-
-                        <td>
-                            <div class="cantidad">
-
-                                <button class="menos">-</button>
-
-                                <span>08</span>
-
-                                <button class="mas">+</button>
-
-                            </div>
-                        </td>
-                    </tr>
-
+                <tbody id="tablaProductos">
+                    <!-- Los datos se insertan aquí dinámicamente con JavaScript -->
                 </tbody>
 
             </table>
 
             <div class="acciones">
 
-                <button class="btn-pdf">
+                <button class="btn-pdf" onclick="generarPDF()">
                     <i class="bi bi-file-earmark-pdf"></i>
                     Guardar y generar PDF
+                </button>
+
+                <button class="btn-limpiar" onclick="limpiarCarrito()">
+                    <i class="bi bi-trash"></i>
+                    Limpiar carrito
                 </button>
 
             </div>
@@ -159,6 +104,8 @@
         </div>
 
     </div>
+
+    <script src="../JS/index.js"></script>
 
 </body>
 

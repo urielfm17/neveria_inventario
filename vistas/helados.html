@@ -20,31 +20,34 @@
             <div class="card">
                 <h3>Fresa</h3>
                 <p>Presentación: Litro</p>
-                <button>Seleccionar</button>
+                <input type="number" class="cantidad-input" value="1" min="1">
+                <button class="btn-seleccionar" onclick="agregarProducto('Helado de Fresa', 'Litro', this)">Seleccionar</button>
             </div>
 
             <div class="card">
                 <h3>Chocolate</h3>
                 <p>Presentación: Litro</p>
-                <button>Seleccionar</button>
+                <input type="number" class="cantidad-input" value="1" min="1">
+                <button class="btn-seleccionar" onclick="agregarProducto('Helado de Chocolate', 'Litro', this)">Seleccionar</button>
             </div>
 
             <div class="card">
                 <h3>Vainilla</h3>
                 <p>Presentación: Litro</p>
-                <button>Seleccionar</button>
+                <input type="number" class="cantidad-input" value="1" min="1">
+                <button class="btn-seleccionar" onclick="agregarProducto('Helado de Vainilla', 'Litro', this)">Seleccionar</button>
             </div>
 
             <div class="card">
                 <h3>Galleta</h3>
                 <p>Presentación: Litro</p>
-                <button>Seleccionar</button>
+                <input type="number" class="cantidad-input" value="1" min="1">
+                <button class="btn-seleccionar" onclick="agregarProducto('Helado de Galleta', 'Litro', this)">Seleccionar</button>
             </div>
 
         </div>
 
         <div class="acciones">
-            <button class="guardar">Guardar selección</button>
 
             <button class="inicio" onclick="window.location.href='index.html'">
                 MENÚ PRINCIPAL
@@ -52,6 +55,8 @@
         </div>
 
     </div>
+
+    <script src="../JS/helados.js"></script>
 
 </body>
 

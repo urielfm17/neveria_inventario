@@ -20,31 +20,34 @@
             <div class="card">
                 <h3>Limón</h3>
                 <p>Presentación: Paleta</p>
-                <button>Seleccionar</button>
+                <input type="number" class="cantidad-input" value="1" min="1">
+                <button class="btn-seleccionar" onclick="agregarProducto('Paleta de Limón', 'Paleta', this)">Seleccionar</button>
             </div>
 
             <div class="card">
                 <h3>Fresa</h3>
                 <p>Presentación: Paleta</p>
-                <button>Seleccionar</button>
+                <input type="number" class="cantidad-input" value="1" min="1">
+                <button class="btn-seleccionar" onclick="agregarProducto('Paleta de Fresa', 'Paleta', this)">Seleccionar</button>
             </div>
 
             <div class="card">
                 <h3>Mango</h3>
                 <p>Presentación: Paleta</p>
-                <button>Seleccionar</button>
+                <input type="number" class="cantidad-input" value="1" min="1">
+                <button class="btn-seleccionar" onclick="agregarProducto('Paleta de Mango', 'Paleta', this)">Seleccionar</button>
             </div>
 
             <div class="card">
                 <h3>Tamarindo</h3>
                 <p>Presentación: Paleta</p>
-                <button>Seleccionar</button>
+                <input type="number" class="cantidad-input" value="1" min="1">
+                <button class="btn-seleccionar" onclick="agregarProducto('Paleta de Tamarindo', 'Paleta', this)">Seleccionar</button>
             </div>
 
         </div>
 
         <div class="acciones">
-            <button class="guardar">Guardar selección</button>
 
             <button class="inicio" onclick="window.location.href='index.html'">
                 MENÚ PRINCIPAL
@@ -52,6 +55,8 @@
         </div>
 
     </div>
+
+    <script src="../JS/paletas.js"></script>
 
 </body>
 
