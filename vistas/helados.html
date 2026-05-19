@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helados</title>
+
+    <link rel="stylesheet" href="../CSS/helados.css">
+    <script src="../JS/auth.js"></script>
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <h1>Helados</h1>
+
+        <div class="grid-productos">
+
+            <div class="card">
+                <h3>Fresa</h3>
+                <p>Presentación: Litro</p>
+                <input type="number" class="cantidad-input" value="1" min="1">
+                <button class="btn-seleccionar" onclick="agregarProducto('Helado de Fresa', 'Litro', this)">Seleccionar</button>
+            </div>
+
+            <div class="card">
+                <h3>Chocolate</h3>
+                <p>Presentación: Litro</p>
+                <input type="number" class="cantidad-input" value="1" min="1">
+                <button class="btn-seleccionar" onclick="agregarProducto('Helado de Chocolate', 'Litro', this)">Seleccionar</button>
+            </div>
+
+            <div class="card">
+                <h3>Vainilla</h3>
+                <p>Presentación: Litro</p>
+                <input type="number" class="cantidad-input" value="1" min="1">
+                <button class="btn-seleccionar" onclick="agregarProducto('Helado de Vainilla', 'Litro', this)">Seleccionar</button>
+            </div>
+
+            <div class="card">
+                <h3>Galleta</h3>
+                <p>Presentación: Litro</p>
+                <input type="number" class="cantidad-input" value="1" min="1">
+                <button class="btn-seleccionar" onclick="agregarProducto('Helado de Galleta', 'Litro', this)">Seleccionar</button>
+            </div>
+
+        </div>
+
+        <div class="acciones">
+
+            <button class="inicio" onclick="window.location.href='index.html'">
+                MENÚ PRINCIPAL
+            </button>
+        </div>
+
+    </div>
+
+    <script src="../JS/helados.js"></script>
+
+</body>
+
+</html>

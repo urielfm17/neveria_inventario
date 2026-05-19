@@ -7,7 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../CSS/reportes.css">
+<<<<<<< HEAD:vistas/reportes_vista.php
     <script src="../logica/reportes.js"></script>
+=======
+
+    <script src="../JS/reportes.js"></script>
+     <script src="../JS/auth.js"></script>
+
+>>>>>>> aa0e7e8cf23179b92ba8772276f4bf57a867d755:vistas/reportes.html
 </head>
 <body>
 
