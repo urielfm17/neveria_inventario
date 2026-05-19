@@ -154,10 +154,11 @@ function limpiarCarrito() {
 }
 
 // Generar PDF
+// Generar TXT y respaldar en el historial de reportes
 function generarPDF() {
-    console.log('Generando PDF desde pedidoActual');
+    console.log('Generando archivo y guardando en historial...');
     
-    // CAMBIO: Leer de 'pedidoActual'
+    // Leer el pedido que se está armando en la pantalla principal
     const pedidoJSON = localStorage.getItem('pedidoActual');
     let pedido = {};
     
@@ -169,39 +170,84 @@ function generarPDF() {
     }
 
     if (Object.keys(pedido).length === 0) {
-        alert('No hay productos para generar PDF');
+        alert('No hay productos para generar la orden.');
         return;
     }
 
+    // 1. CREACIÓN DEL TEXTO PARA EL ARCHIVO
     let contenido = 'PEDIDO - Helados Luz del Día\n';
     contenido += '=============================\n\n';
-    let total = 0;
+    let totalProductos = 0;
+    let listaProductosEstructurada = [];
 
     for (const key in pedido) {
         const producto = pedido[key];
         if (producto && producto.nombre) {
             contenido += `${producto.nombre} (${producto.presentacion}): ${producto.cantidad}\n`;
-            total++;
+            totalProductos += producto.cantidad;
+            
+            // Guardamos el producto estructurado para el reporte histórico
+            listaProductosEstructurada.push({
+                nombre: producto.nombre,
+                presentacion: producto.presentacion,
+                cantidad: producto.cantidad
+            });
         }
     }
 
     contenido += '\n=============================\n';
-    contenido += `Total de productos: ${total}`;
+    contenido += `Total de productos: ${totalProductos}`;
 
+    // Descargar el archivo .txt
+    const idPedidoUnico = Math.floor(100000 + Math.random() * 900000); // ID de 6 dígitos
     try {
         const blob = new Blob([contenido], { type: 'text/plain;charset=utf-8' });
         const link = document.createElement('a');
         const url = URL.createObjectURL(blob);
         link.setAttribute('href', url);
-        link.setAttribute('download', 'pedido.txt');
+        link.setAttribute('download', `pedido_${idPedidoUnico}.txt`);
         link.style.visibility = 'hidden';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        console.log('PDF generado');
+        console.log('Archivo descargado con éxito');
     } catch (error) {
-        console.error('ERROR al generar PDF:', error);
-        alert('Error al generar PDF: ' + error.message);
+        console.error('ERROR al descargar archivo:', error);
+        alert('Error al generar el archivo');
+        return;
+    }
+
+    // 2. GUARDAR EN EL ARREGLO DE HISTORIAL PARA REPORTES
+    try {
+        // Obtener lo que ya esté guardado en el historial o iniciar un arreglo vacío
+        let historial = JSON.parse(localStorage.getItem('historialPedidos')) || [];
+
+        // Creamos el objeto del reporte con la fecha de hoy
+        const nuevoReporte = {
+            id: 'PED-' + idPedidoUnico,
+            fecha: new Date().toISOString().split('T')[0], // Guarda en formato AAAA-MM-DD
+            proveedor: 'General', 
+            productos: listaProductosEstructurada,
+            total: totalProductos,
+            estado: 'Completado',
+            contenidoTxt: contenido // Guardamos el texto por si quieres reimprimirlo o consultarlo
+        };
+
+        // Lo agregamos al arreglo
+        historial.push(nuevoReporte);
+
+        // Lo devolvemos al localStorage bajo su propia clave "historialPedidos"
+        localStorage.setItem('historialPedidos', JSON.stringify(historial));
+        console.log('✓ Pedido registrado en el historial de reportes');
+
+        // 3. LIMPIAR PANTALLA PRINCIPAL
+        localStorage.removeItem('pedidoActual');
+        cargarProductos();
+        
+        alert('✓ ¡Pedido procesado, TXT generado y guardado en Reportes!');
+
+    } catch (error) {
+        console.error('Error al guardar en el historial:', error);
     }
 }
 
