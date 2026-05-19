@@ -10,6 +10,8 @@
 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <script src="../JS/auth.js"></script>
 </head>
 
 <body>
@@ -21,12 +23,14 @@
 
             <div class="usuario">
                 Usuario:
-                <span>uriel</span>
+                <!-- ✅ FIX 2: Nombre dinámico desde localStorage -->
+                <span id="nombreUsuario">-</span>
             </div>
 
             <h1>Helados Luz del Día</h1>
 
-            <button class="btn-cerrar">
+            <!-- ✅ FIX 1: Botón con función de cerrar sesión -->
+            <button class="btn-cerrar" onclick="cerrarSesion()">
                 Cerrar sesión
             </button>
 
@@ -105,8 +109,10 @@
 
     </div>
 
-    <script src="../JS/index.js"></script>
+    
+
+    
 
 </body>
-
+<script src="../JS/index.js"></script>
 </html>

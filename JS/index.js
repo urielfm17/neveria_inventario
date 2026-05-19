@@ -260,3 +260,19 @@ window.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('focus', function() {
     cargarProductos();
 });
+
+//Al cargar la página: verificar sesión y mostrar nombre
+        var sesion = JSON.parse(localStorage.getItem('sesionActual'));
+
+        if (!sesion) {
+            // Si no hay sesión, redirige al login automáticamente
+            window.location.href = 'login.html';
+        } else {
+            document.getElementById('nombreUsuario').textContent = sesion.nombre;
+        }
+
+        //Función cerrar sesión
+        function cerrarSesion() {
+            localStorage.removeItem('sesionActual');
+            window.location.href = 'login.html';
+        }
