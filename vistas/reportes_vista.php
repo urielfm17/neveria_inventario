@@ -51,7 +51,7 @@
                     <tr>
                         <th>ID Pedido</th>
                         <th>Fecha</th>
-                        <th>Proveedor</th>
+                        <th>encargado</th>
                         <th>Productos</th>
                         <th>Total</th>
                         <th>Estado</th>
