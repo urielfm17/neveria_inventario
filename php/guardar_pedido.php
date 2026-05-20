@@ -11,38 +11,49 @@ if (!$input || !isset($input['productos']) || empty($input['productos'])) {
 }
 
 $id_usuario = intval($input['id_usuario'] ?? 1);
-$productos  = $input['productos'];
+$productos = $input['productos'];
 
 $conn->begin_transaction();
 
 try {
+    // 1. Crear el pedido
     $stmtPedido = $conn->prepare("INSERT INTO pedidos (id_usuario) VALUES (?)");
     $stmtPedido->bind_param("i", $id_usuario);
     $stmtPedido->execute();
     $id_pedido = $conn->insert_id;
     $stmtPedido->close();
 
+    // 2. Preparar inserts de detalles y update de existencias
     $stmtDetalle = $conn->prepare(
         "INSERT INTO detalles_pedido (id_pedido, id_producto, cantidad) VALUES (?, ?, ?)"
+    );
+    $stmtStock = $conn->prepare(
+        "UPDATE productos SET existencia = existencia + ? WHERE id_producto = ?"
     );
 
     foreach ($productos as $prod) {
         $id_producto = intval($prod['id_producto'] ?? 0);
-        $cantidad    = intval($prod['cantidad']    ?? 0);
+        $cantidad = intval($prod['cantidad'] ?? 0);
 
         if ($id_producto > 0 && $cantidad > 0) {
+            // Insertar detalle del pedido
             $stmtDetalle->bind_param("iii", $id_pedido, $id_producto, $cantidad);
             $stmtDetalle->execute();
+
+            // Sumar a existencias
+            $stmtStock->bind_param("ii", $cantidad, $id_producto);
+            $stmtStock->execute();
         }
     }
 
     $stmtDetalle->close();
+    $stmtStock->close();
     $conn->commit();
 
     echo json_encode([
-        'success'   => true,
+        'success' => true,
         'id_pedido' => $id_pedido,
-        'pdf'       => '../php/ticket.php?id=' . $id_pedido
+        'pdf' => '../php/ticket.php?id=' . $id_pedido
     ]);
 
 } catch (Exception $e) {
