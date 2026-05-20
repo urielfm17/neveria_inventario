@@ -1,4 +1,5 @@
 <?php
+session_start();
 // ── Este archivo es: php/guardar_pedido.php ────────────────────────────────
 include("conexion.php");
 
@@ -10,7 +11,16 @@ if (!$input || !isset($input['productos']) || empty($input['productos'])) {
     exit();
 }
 
-$id_usuario = intval($input['id_usuario'] ?? 1);
+if (!isset($_SESSION['id_usuario'])) {
+    echo json_encode([
+        "success" => false,
+        "message" => "No hay sesión iniciada"
+    ]);
+    exit;
+}
+
+$id_usuario = $_SESSION['id_usuario'];
+
 $productos = $input['productos'];
 
 $conn->begin_transaction();

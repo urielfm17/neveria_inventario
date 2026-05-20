@@ -30,7 +30,7 @@ function buscarPedidos() {
                     <tr>
                         <td>${pedido.id_pedido}</td>
                         <td>${pedido.fecha}</td>
-                        <td>${pedido.proveedor}</td>
+                        <td>${pedido.encargado}</td>
                         <td>${pedido.productos}</td>
                         <td>${pedido.total}</td>
                         <td>

@@ -14,7 +14,7 @@ async function guardarPedidoEnBD() {
         const respuesta = await fetch("../php/guardar_pedido.php", {
             method:  "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id_usuario: 1, productos })
+            body: JSON.stringify({ productos })
         });
 
         // Leer texto crudo ANTES de parsear — así vemos el error exacto de PHP

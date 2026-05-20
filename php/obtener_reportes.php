@@ -14,7 +14,7 @@ if (empty($fechaInicio) || empty($fechaFin)) {
 $sql = "SELECT 
             p.id_pedido,
             p.fecha_pedido,
-            u.nombre_completo AS proveedor,
+            u.nombre_completo AS encargado,
             COUNT(dp.id_detalle) AS total_productos,
             COALESCE(SUM(dp.cantidad), 0) AS total_unidades
         FROM pedidos p
@@ -37,7 +37,7 @@ while ($fila = $resultado->fetch_assoc()) {
     $datos[] = [
         'id_pedido' => $fila['id_pedido'],
         'fecha'     => date('d/m/Y H:i', strtotime($fila['fecha_pedido'])),
-        'proveedor' => $fila['proveedor'],
+        'encargado' => $fila['encargado'],
         'productos' => $fila['total_productos'] . ' productos',
         'total'     => $fila['total_unidades'] . ' unidades',
         'estado'    => 'Completado',
