@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes - Nevería</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../CSS/reportes.css">
+    <script src="../logica/reportes.js"></script>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <h1><i class="fas fa-ice-cream"></i> Nevería - Reportes</h1>
+        <nav>
+            <a href="index.html" class="nav-btn"><i class="fas fa-home"></i> Inicio</a>
+        </nav>
+    </div>
+
+    <!-- Buscador por Fechas -->
+    <div class="main-content">
+        <div class="search-box">
+            <h2><i class="fas fa-calendar-alt"></i> Historial de Pedidos</h2>
+            
+            <div class="date-group">
+                <label>Fecha Inicial</label>
+                <input type="date" id="fechaInicio">
+            </div>
+
+            <div class="date-group">
+                <label>Fecha Final</label>
+                <input type="date" id="fechaFin">
+            </div>
+
+            <button class="btn-search" onclick="buscarPedidos()">
+                <i class="fas fa-search"></i> Buscar
+            </button>
+        </div>
+
+        <!-- Tabla de Resultados -->
+        <div class="table-container">
+            <div class="table-header">
+                <h3>Pedidos Realizados</h3>
+                <span class="total-count" id="totalPedidos">0 pedidos</span>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Pedido</th>
+                        <th>Fecha</th>
+                        <th>encargado</th>
+                        <th>Productos</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                        <th>PDF</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaPedidos">
+                    <!-- Los datos se insertan aquí con JavaScript -->
+                </tbody>
+            </table>
+
+            <div class="no-results" id="noResultados" style="display: none;">
+                <i class="fas fa-file-alt"></i>
+                <p>No se encontraron pedidos en este rango de fechas</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
