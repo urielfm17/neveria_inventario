@@ -219,3 +219,22 @@ td{
 .btn-pdf:hover{
     background: #11853c;
 }
+/* Botón eliminar producto individual */
+.btn-eliminar {
+    background: white;
+    border: 1px solid #ff7c7c;
+    color: #e53935;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s;
+    white-space: nowrap;
+}
+
+.btn-eliminar:hover {
+    background: #e53935;
+    color: white;
+    border-color: #e53935;
+}
